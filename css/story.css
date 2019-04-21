@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+}
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+.container {
+    font-family: 'Source Code Pro', monospace;
+    color: rgb(214, 214, 214);
+}
+input {
+    background-color: black;
+    color: rgb(214, 214, 214);
+    border: 0px;
+    outline: none;
+    width: 80%;
+    box-sizing:border-box;
+}
