@@ -1,6 +1,6 @@
 function printHost() {
     let hostName = 'OS_0000001@earth:~$';
-    $('.container').append('<br /><span class="host">' + hostName + '&nbsp;</span>');
+    $('.container').append('<br /><span class="host col-12 m-0 p-0">' + hostName + '&nbsp;</span>');
 }
 
 var sleep = (ms = 0) => {
@@ -58,7 +58,7 @@ function checkInput(input_data) {
 async function user_input() {
     printHost();
 
-    $('.container .host').last().append('<input type="text" name="id_and_code" class="id_and_code">');
+    $('.container .host').last().append('<input type="text" id="id_and_code" name="id_and_code" class="col-4 col-md-6 col-lg-8 m-0 p-0">');
     $('.id_and_code').last().focus();
     $('.id_and_code').last().keypress(async function (event) {
         if (event.keyCode == 13) {

@@ -1,6 +1,6 @@
 function printHost() {
     let hostName = 'OS_0000001@earth:~$';
-    $('.container').append('<br /><span class="host">' + hostName + '&nbsp;</span>');
+    $('.container').append('<br /><span class="host col-12 m-0 p-0">' + hostName + '&nbsp;</span>');
 }
 
 var sleep = (ms = 0) => {
@@ -27,7 +27,6 @@ async function checkInput(input_data) {
             await sleep(300);
 
         }
-        
         for(let i = 0; i < 30; i++) {
             printHost();
             await sleep(300 - (i * 10));
@@ -36,7 +35,7 @@ async function checkInput(input_data) {
             printHost();
         }
         // 看要改哪裡
-        location.href = 'https://www.facebook.com';
+        // location.href = 'https://www.facebook.com';
         return true;
     }
     return false;
@@ -45,16 +44,17 @@ async function checkInput(input_data) {
 async function user_input() {
     printHost();
 
-    $('.container .host').last().append('<input type="text" name="id_and_code" class="id_and_code">');
-    $('.id_and_code').last().focus();
-    $('.id_and_code').last().keypress(async function (event) {
+    $('.container .host').last().append('<input type="text" id="id_and_code" name="id_and_code" class="col-4 col-md-6 col-lg-8 m-0 p-0">');
+    $('#id_and_code').focus();
+    $('#id_and_code').keypress(async function (event) {
         if (event.keyCode == 13) {
-            $('.id_and_code').last().attr('disabled', 'disabled');
+            $('#id_and_code').attr('disabled', 'disabled');
             // 如果輸入錯誤
-            if (!checkInput($('.id_and_code').last().val())) {
+            let result = await checkInput($('#id_and_code').val());
+            if(!result) {
                 printHost();
-                await printText('不');
-                location.href = 'https://www.facebook.com';
+                await printText('Error');
+                location.href = 'http://www.lmgtfy.com/?q=%E5%A6%82%E6%9E%9C%E6%88%91%E6%9C%8B%E5%8F%8B%E5%BE%9E%E4%B8%96%E7%95%8C%E4%B8%8A%E6%B6%88%E5%A4%B1%E4%BA%86%E8%A9%B2%E6%80%8E%E9%BA%BC%E8%BE%A6%EF%BC%9F';
             }
         }
     });
@@ -79,6 +79,6 @@ async function main() {
         await printText(text[i]);
         await sleep(300);
     }
-    user_input();
+    await user_input();
 }
 main()
