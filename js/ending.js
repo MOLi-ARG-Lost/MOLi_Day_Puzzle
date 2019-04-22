@@ -1,3 +1,8 @@
+function pageScroll() {
+    window.scrollBy(0,1);
+    scrolldelay = setTimeout(pageScroll,10);
+}
+
 function printHost() {
     let hostName = 'OS_0000001@earth:~$';
     $('.container').append('<br /><span class="host">' + hostName + '&nbsp;</span>');
@@ -81,4 +86,5 @@ async function main() {
     }
     user_input();
 }
-main()
+main();
+pageScroll();
