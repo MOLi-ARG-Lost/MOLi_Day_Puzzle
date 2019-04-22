@@ -16,43 +16,30 @@ async function printText(word) {
     }
 }
 
-async function printStory(storyNum) {
-    printHost();
-    // 讀入故事並存進陣列
-    var story = [];
-    await printText('story[storyNum]');
-    printHost();
-}
+async function checkInput(input_data) {
+    if (input_data == '王翰同') {
+        let endText = ['恭喜', '你果然找到了失去的存在', '如此一來我們便可將王翰同重新啟動',
+            '不過', '包含你們在內', '關於我們事情的記憶', '會全部消失', '畢竟我們不能再承受任何風險',
+            '再會...', '不', '永別了'];
+        for (var i in endText) {
+            printHost();
+            await printText(endText[i]);
+            await sleep(300);
 
-function checkInput(input_data) {
-    var data = input_data.split(' ');
-    // data[0] 是參賽者的卡號
-    // 要接資料庫紀錄參賽隊伍的進度
-    switch (data[1]) {
-        case 'PTIKK42SQG':
-            printStory(0);
-            return true;
-        case 'HS44APEBS8':
-            printStory(1);
-            return true;
-        case 'APRVL69UB3':
-            printStory(2);
-            return true;
-        case '7GF2M2XM2L':
-            printStory(3);
-            return true;
-        case '36EF11SSOC':
-            printStory(4);
-            return true;
-        case 'UC752H9W22':
-            printStory(5);
-            return true;
-        case 'EM5NM91GA6':
-            printStory(6);
-            return true;
-        default:
-            return false;
+        }
+        
+        for(let i = 0; i < 30; i++) {
+            printHost();
+            await sleep(300 - (i * 10));
+        }
+        for(let i = 0; i < 100; i++) {
+            printHost();
+        }
+        // 看要改哪裡
+        location.href = 'https://www.facebook.com';
+        return true;
     }
+    return false;
 }
 
 async function user_input() {
@@ -63,12 +50,11 @@ async function user_input() {
     $('.id_and_code').last().keypress(async function (event) {
         if (event.keyCode == 13) {
             $('.id_and_code').last().attr('disabled', 'disabled');
-
             // 如果輸入錯誤
             if (!checkInput($('.id_and_code').last().val())) {
                 printHost();
-                await printText('輸入錯誤, 請重新輸入');
-                user_input();
+                await printText('不');
+                location.href = 'https://www.facebook.com';
             }
         }
     });
@@ -84,7 +70,7 @@ var verInfo = `Welcome to WorldSimulation 2019.05 LTS (GNU/Linux 4.4.0-139-gener
 
 <br/><br/><br/> *** System restart required ***
 <br/> Last login: Sun Apr 21 01:52:42 2019 from 101.12.8.172 <br />`;
-let text = ['你好', '歡迎來到終端', '請輸入你的卡片辨識碼以及 Story Code', '如: 15601800 XC15D8E'];
+let text = ['你好', '歡迎來到終端', '能走到這表示你已經找到失去的存在了吧', '那麼', '告訴我你的名字吧'];
 
 async function main() {
     $('.container').append(verInfo);
