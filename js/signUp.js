@@ -1,30 +1,24 @@
-$(document).ready(function () {
-    $('.login-info-box').fadeOut();
-    $('.login-show').addClass('show-log-panel');
-});
+var app = (() => {
+    var modules = {};
 
-$('.login-reg-panel input[type="radio"]').on('change', function () {
-    if ($('#log-login-show').is(':checked')) {
-        $('.register-info-box').fadeOut();
-        $('.login-info-box').fadeIn();
-
-        $('.white-panel').addClass('right-log');
-        $('.register-show').addClass('show-log-panel');
-        $('.login-show').removeClass('show-log-panel');
-
+    function getHint() {
+        alert('You have to looking for the clues in this page');
     }
-    else if ($('#log-reg-show').is(':checked')) {
-        $('.register-info-box').fadeIn();
-        $('.login-info-box').fadeOut();
 
-        $('.white-panel').removeClass('right-log');
-
-        $('.login-show').addClass('show-log-panel');
-        $('.register-show').removeClass('show-log-panel');
+    function slidePanel() {
+        $('#errorPanel, #puzzleInfo').removeClass('d-block');
+        $('#errorPanel, #puzzleInfo').addClass('d-none');
+        $('#registerPanel, #registeInfo').removeClass('d-none');
+        $('#registerPanel, #registeInfo').addClass('d-block');
     }
-});
 
-function hintMessage() {
-    var hint = 'You have to looking for the clues in this page';
-    alert(hint);
-}
+    modules.init = () => {
+        console.log('init');
+        $('#getHint').bind('click', getHint);
+        $('#label-brain').bind('click', slidePanel);
+    }
+
+    return modules;
+})();
+
+console.log(app);
