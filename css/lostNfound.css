@@ -1,0 +1,12 @@
+body {
+    font-family: '微軟正黑體';
+}
+#newFound {    font-family: '微軟正黑體';
+    font-weight: bolder !important;
+    color: white !important;
+    background-color: gray !important;
+}
+#send {
+    background-color: gray;
+    font-weight: bold;
+}
