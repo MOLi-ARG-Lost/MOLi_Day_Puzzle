@@ -55,6 +55,9 @@
                           </div>
                         </div>
                       </div>
+                      <p id="passwordHelpBlock" class="form-text text-muted">
+                        姓名請填入中文或英文名字，可包含 "-" 及 "空白"
+                      </p>
                       <div class="form-group row">
                         <label for="mainEmail" class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-8 align-self-center">
@@ -67,6 +70,9 @@
                           <input type="password" class="form-control" id="teamPassword" placeholder="請輸入團隊密碼">
                         </div>
                       </div>
+                      <p id="passwordHelpBlock" class="form-text text-muted">
+                        密碼至少要四個字元以上，並且包含一個英文字元
+                      </p>
                     </form>
                   </div>
                 </div>
@@ -144,8 +150,10 @@
                 </form>
               </div>
             </div>
-            <div class="col-12 my-3 d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">確認送出</button>
+            <!-- 插入錯誤訊息 -->
+            <div id="showMsg" class="m-4 alert alert-danger d-none" role="alert"></div>
+            <div id="formEnd" class="col-12 my-3 d-flex justify-content-end">
+              <button id="submit" type="submit" class="btn btn-primary">確認送出</button>
             </div>
           </div>
         </div>
@@ -157,7 +165,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/signUp.js"></script>
     <script>
-      app.init();
+      signUp_modules.init();
     </script>
   </body>
 </html>
