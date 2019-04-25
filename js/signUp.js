@@ -85,8 +85,8 @@ var signUp_modules = (() => {
         // 沒有填寫的欄位
         invalid = [];
 
-        // 使用者資料欄位
-        userObject = {
+        // 團隊資料欄位
+        teamObject = {
             '團隊密碼': (passwordCheck.test($('#teamPassword').val())) ? $('#teamPassword').val() : "",
             '主要聯絡人': {
                 '學號': (idCheck.test($('#mainStudentID').val())) ? $('#mainStudentID').val() : "",
@@ -105,14 +105,14 @@ var signUp_modules = (() => {
             }
         };
 
-        for(let key in userObject) {
-            if(typeof(userObject[key]) === "object") {
-                for(let subKey in userObject[key]) {
-                    if(userObject[key][subKey] === "") {
+        for(let key in teamObject) {
+            if(typeof(teamObject[key]) === "object") {
+                for(let subKey in teamObject[key]) {
+                    if(teamObject[key][subKey] === "") {
                         invalid.push("無效的" + key + subKey);
                     }
                 }
-            } else if(userObject[key] === "") {
+            } else if(teamObject[key] === "") {
                 invalid.push("無效的" + key);
             }
         }
