@@ -18,11 +18,12 @@ var signUp_modules = (() => {
 
     // 頁面切換
     function _slidePanel() {
-        $('#errorPanel').fadeOut();
-        $('#registerPanel').fadeIn();
+        $('#errorPanel').fadeOut('slow', () => {
+            $('#errorPanel, #puzzleInfo').removeClass('d-block');
+            $('#errorPanel, #puzzleInfo').addClass('d-none');
+        });
+        $('#registerPanel').fadeIn('slow');
 
-        $('#errorPanel, #puzzleInfo').removeClass('d-block');
-        $('#errorPanel, #puzzleInfo').addClass('d-none');
         $('#registerPanel, #registeInfo').removeClass('d-none');
         $('#registerPanel, #registeInfo').addClass('d-block');
     }
