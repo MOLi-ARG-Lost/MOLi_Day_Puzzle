@@ -54,14 +54,8 @@ function insertSymbol(element, symbol) {
 /* Changes screen with a fade effect */
 function startGame() {
   /* Shows the game screen when the intro screen is completely hidden */
-  showGameScreen();
+  $("#game-screen").fadeIn(1000);
   restartGame();
-}
-function showGameScreen() {
-  $("#game-screen").fadeIn(300);
-}
-function showEnemyScreen() {
-  $("#enemy-screen").fadeIn(300);
 }
 
 /* Sets everything to its default value */
@@ -94,6 +88,7 @@ function checkWinConditions(element) {
       // Highlight the cells that form a winning combination
       $("#cell" + i + column).addClass("wincell");
     }
+
     return; // Exit from the function, to prevent "win" to be set to false by other checks
   }
   
