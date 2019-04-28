@@ -1,33 +1,12 @@
-var playerSymbol;
-var enemySymbol;
+var playerSymbol = "O";
+var enemySymbol = "X";
 var win;  // TRUE if somebody won the game
 var turn; // Number of the current turn
 var row, column;  // Will contain "coordinates"for a specific cell
 var cpuEnabled = true;  // Set this to false to play against a human
 
 $(document).ready(function() {
-  // Intro screen buttons
-  $("#choose-x").on("click", function() {
-    playerSymbol = "X";
-    enemySymbol = "O";
-    $("#intro-screen").fadeOut(300, showEnemyScreen);
-  });
-  $("#choose-o").on("click", function() {
-    playerSymbol = "O";
-    enemySymbol = "X";
-    $("#intro-screen").fadeOut(300, showEnemyScreen);
-  });
-  
-  // Enemy screen buttons
-  $("#choose-human").on("click", function() {
-    cpuEnabled = false;
-    startGame();
-  });
-  $("#choose-cpu").on("click", function() {
-    cpuEnabled = true;
-    startGame();
-  });
-  
+  startGame();
   // Game screen buttons
   $("#restart").on("click", function() {
     restartGame();
@@ -48,6 +27,9 @@ $(document).ready(function() {
 
 /******  FUNCTIONS  ******/
 
+var sleep = (ms = 0) => {
+  return new Promise(r => setTimeout(r, ms));
+}
 
 // Inserts a symbol in the clicked cell
 function insertSymbol(element, symbol) {
@@ -72,7 +54,7 @@ function insertSymbol(element, symbol) {
 /* Changes screen with a fade effect */
 function startGame() {
   /* Shows the game screen when the intro screen is completely hidden */
-  $("#enemy-screen").fadeOut(300, showGameScreen);
+  showGameScreen();
   restartGame();
 }
 function showGameScreen() {
@@ -161,7 +143,7 @@ function checkWinConditions(element) {
 }
 
 // Simple AI (clicks a random empty cell)
-function cpuTurn() {
+async function cpuTurn() {
   var ok = false;
   
   while(!ok) {
@@ -172,6 +154,6 @@ function cpuTurn() {
       ok = true;
     }
   }
-  
+  await sleep(500);
   $("#cell"+row+column).click(); // Emulate a click on the cell
 }
