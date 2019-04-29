@@ -4,6 +4,7 @@ var win;  // TRUE if somebody won the game
 var turn; // Number of the current turn
 var row, column;  // Will contain "coordinates"for a specific cell
 var cpuEnabled = true;  // Set this to false to play against a human
+var counter = 4;
 
 $(document).ready(function () {
     startGame();
@@ -13,13 +14,19 @@ $(document).ready(function () {
     });
     $(".cell").on("click", function () {
         // If nobody has won yet and clicked cell is empty
-        if (!win && this.innerHTML === "") {
+        if (!win && this.innerHTML === "" && counter > 0) {
             if (turn % 2 === 0) { // Even number = player turn
                 insertSymbol(this, playerSymbol);
+                
             }
             else { // Odd number = enemy turn
                 insertSymbol(this, enemySymbol);
             }
+        } else if (counter == 0) {
+            alert("You don't have enough O to use");
+            $("#restart").addClass("btn-green");  // Highlights "restart" button
+            $(".cell").addClass("cannotuse");  // Tells visually you can't interact anymore with the game grid
+
         }
     });
 });
@@ -40,11 +47,12 @@ function insertSymbol(element, symbol) {
     $("#" + element.id).addClass("cannotuse");  // Show a "disabled" cursor on already occupied cells
 
     checkWinConditions(element);
-    if(win) {
+    if (win) {
         // 把 hover 移除
-        $('.cell').unbind('mouseenter').unbind('mouseleave');
+        $('.cell').removeClass('cellHover');
     }
     turn++;
+    counter--;
     // Game end - If somebody has won or all cells are filled
     if (win || turn > 8) {
         $("#restart").addClass("btn-green");  // Highlights "restart" button
@@ -71,6 +79,8 @@ function restartGame() {
     $(".cell").removeClass("cannotuse");
     $(".cell").removeClass("player-two");
     $("#restart").removeClass("btn-green");
+    $(".cell").addClass('cellHover');
+    counter = 4;
 }
 
 /* Check if there's a winning combination in the grid (3 equal symbols in a row/column/diagonal) */
@@ -92,7 +102,7 @@ function checkWinConditions(element) {
             // Highlight the cells that form a winning combination
             $("#cell" + i + column).addClass("wincell");
         }
-        
+
         return; // Exit from the function, to prevent "win" to be set to false by other checks
     }
 
