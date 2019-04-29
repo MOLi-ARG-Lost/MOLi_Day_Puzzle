@@ -10,13 +10,6 @@
 - 教院的 4 個提示
 - HELP 網頁
 - 總帳網頁
-- Story
-    - one
-    - two
-    - three
-    - four
-    - five
-    - six
-    - seven
+- Story page
 - Ending page
 - Ending Story
