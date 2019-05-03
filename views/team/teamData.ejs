@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <link href="/stylesheets/fullPage.css" rel="stylesheet">
+    <title>團隊驗證狀態</title>
+</head>
+<body class="d-flex justify-content-center">
+    <div class="container-fluid align-self-center d-flex justify-content-center">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">團隊角色</th>
+                <th scope="col">信箱</th>
+                <th scope="col">驗證狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let members = ['主要聯絡人', '夥伴一', '夥伴二']; %>
+                <% for(let i = 0; i < 3; i++) {%>
+                    <tr>
+                        <th scope="row"><%= i + 1 %></th>
+                        <td><%= members[i] %></td>
+                        <td><%= teamObject[members[i]]['信箱'] %></td>
+                        <td><%= teamObject[members[i]]['是否驗證'] %></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <% include ../model/bsjq_js %>
+</body>
+</html>

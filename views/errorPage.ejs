@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ./model/head %>
+    <% include ./model/bs_css %>
+    <link href="/stylesheets/fullPage.css" rel="stylesheet">
+    <title>Not Found</title>
+</head>
+<body class="d-flex justify-content-center">
+    <div class="container-fluid align-self-center d-flex justify-content-center">
+        <% if (error) { %>
+            <div class="col-10 col-lg-6 alert alert-danger" role="alert">
+                <h1 class="m-0 text-center text-md-left">發生錯誤 (原因：<%= error %>)</h1>
+            </div>
+        <% }
+    </div>
+    <% include ./model/bsjq_js %>
+</body>
+</html>

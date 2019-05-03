@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <link href="/stylesheets/fullPage.css" rel="stylesheet">
+    <title>找不到隊伍</title>
+</head>
+<body class="d-flex justify-content-center">
+    <div class="container-fluid align-self-center d-flex justify-content-center">
+        <% if(teamKey) { %>
+            <div class="col-10 col-lg-6 alert alert-danger" role="alert">
+                <h1 class="m-0 text-center text-md-left">找不到隊伍資訊！ (ID：<%= teamKey %>)</h1>
+            </div>
+        <% } else if (error) { %>
+            <div class="col-10 col-lg-6 alert alert-danger" role="alert">
+                <h1 class="m-0 text-center text-md-left">找不到隊伍資訊！ (Error：<%= error %>)</h1>
+            </div>
+        <% } else { %>
+            <div class="col-10 col-lg-6 alert alert-danger" role="alert">
+                <h1 class="m-0 text-center text-md-left">找不到該隊伍資訊！</h1>
+            </div>
+        <% } %>
+    </div>
+    <% include ../model/bsjq_js %>
+</body>
+</html>

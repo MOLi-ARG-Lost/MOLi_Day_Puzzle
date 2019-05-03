@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <link rel="stylesheet" href="/stylesheets/lostNfound.css">
+    <title>校內一卡通紀錄查詢</title>
+</head>
+<body>
+    <div class="container p-5">
+        <h1>暨大拾獲遺失物登記系統</h1>
+        <span class="phone mt-4">校安專線 : 049-2910000</span>
+        <!-- 遺失物表格 -->
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">物品名稱</th>
+                <th scope="col">拾獲地點</th>
+                <th scope="col">拾獲時間</th>
+                <th scope="col">備註</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>機車鑰匙</td>
+                <td>人院停車場</td>
+                <td>18:00</td>
+                <td>SYM 的</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>學生證</td>
+                <td>圖書館</td>
+                <td>14:00</td>
+                <td>資管系 大三 李同學</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>手機</td>
+                <td>機車道</td>
+                <td>09:30</td>
+                <td>iPhone 7 螢幕有裂，不過還可以動</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 填寫遺失物表格 -->
+        <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">新增遺失物</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="form34">物品名稱</label>
+                    <input type="text" id="form34" class="form-control validate">
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="form29">拾獲地點</label>
+                    <input type="email" id="form29" class="form-control validate">
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-tag prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="form32">拾獲時間</label>
+                    <input type="text" id="form32" class="form-control validate">
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="form8">備註</label>
+                    <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+                </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center ">
+                <button class="btn btn-unique" id="send">送出</button>
+                <!-- <i class="fas fa-paper-plane-o ml-1"></i> -->
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal"
+            data-target="#modalContactForm" id="newFound">撿到東西了嗎? 點我新增</a>
+        </div>
+        <!-- 廣告 -->
+        <div class="row col-12 m-0 d-flex justify-content-center">
+            <a class="col-3" href="/cardRecord">
+            <img class="w-100" id="adImg" src="/images/bus01.png" alt="TMDClickIt">
+            </a>
+        </div>
+    </div>
+    <% include ../model/bsjq_js %>
+    <script src="/javascripts/lostNfound.js"></script>
+</body>
+</html>

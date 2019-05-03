@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <link href="/stylesheets/fullPage.css" rel="stylesheet">
+    <link href="/stylesheets/OOXX.css" rel="stylesheet">
+    <title>OOXX</title>
+</head>
+<body class="bg-dark text-white">
+    <div class="container">
+        <div id="game-screen" class="center hidden">
+        <!-- Every cell has an id "cell" followed by cell row and cell column -->
+        <table class="center tbl">
+            <tr>
+            <td class="cell" id="cell00">
+            </td>
+            <td class="cell" id="cell01">
+            </td>
+            <td class="cell" id="cell02">
+            </td>
+            </tr>
+            <tr>
+            <td class="cell" id="cell10">
+            </td>
+            <td class="cell" id="cell11">
+            </td>
+            <td class="cell" id="cell12">
+            </td>
+            </tr>
+            <tr>
+            <td class="cell" id="cell20">
+            </td>
+            <td class="cell" id="cell21">
+            </td>
+            <td class="cell" id="cell22">
+            </td>
+            </tr>
+        </table>
+        <button type="button" id="restart">Restart</button>
+        </div>
+        <div id="cheatCode" class="row col-12 m-0 d-flex justify-content-center">
+        <img src="/images/callForHelp.png" alt="callForHelp">
+        <br/><input id="secretCode" type="text">
+        <button id="sendOut" type="submit">送出</button>
+        </div>
+    </div>
+    <% include ../model/bsjq_js %>
+    <script src="/javascripts/OOXX.js"></script>
+    <script>
+        game.init();
+    </script>
+</body>
+</html>

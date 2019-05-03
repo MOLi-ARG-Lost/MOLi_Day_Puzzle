@@ -1,0 +1,11 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    height: 98%;
+    position: relative;
+}
+#hint {
+    color: white;
+    position: absolute;
+    bottom: 0;
+}
