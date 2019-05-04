@@ -29,4 +29,8 @@ router.get('/freemasonry', function(req, res, next) {
     res.render('freemasonry');
 });
 
+router.get('/finAccount', function(req, res, next) {
+    res.render('finAccount');
+});
+
 module.exports = router;
