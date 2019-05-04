@@ -41,4 +41,8 @@ router.get('/computer', function(req, res, next) {
     res.render('computer');
 });
 
+router.get('/caesar_shift_5', function(req, res, next) {
+    res.render('help');
+});
+
 module.exports = router;
