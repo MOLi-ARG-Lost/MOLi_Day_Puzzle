@@ -25,4 +25,8 @@ router.get('/final', function(req, res, next) {
     res.render('final');
 });
 
+router.get('/freemasonry', function(req, res, next) {
+    res.render('freemasonry');
+});
+
 module.exports = router;
