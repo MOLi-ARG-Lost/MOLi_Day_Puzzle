@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Satisfy');
+body {
+    background-color: black
+}
+.inputPwd {
+    color: gray;
+    font-family: 'Satisfy', cursive;
+    display: inline-block;
+}
+#msg {
+    font-size: 30px;
+}
