@@ -37,4 +37,8 @@ router.get('/Password', function(req, res, next) {
     res.render('pwdToFinAccount');
 });
 
+router.get('/computer', function(req, res, next) {
+    res.render('computer');
+});
+
 module.exports = router;
