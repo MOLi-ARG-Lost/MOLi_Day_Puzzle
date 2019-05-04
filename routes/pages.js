@@ -33,4 +33,8 @@ router.get('/finAccount', function(req, res, next) {
     res.render('finAccount');
 });
 
+router.get('/Password', function(req, res, next) {
+    res.render('pwdToFinAccount');
+});
+
 module.exports = router;
