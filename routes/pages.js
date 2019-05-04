@@ -21,4 +21,8 @@ router.get('/untouchableWindows', function(req, res, next) {
     res.render('terminal');
 });
 
+router.get('/final', function(req, res, next) {
+    res.render('final');
+});
+
 module.exports = router;

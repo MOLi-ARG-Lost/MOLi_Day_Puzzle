@@ -7,7 +7,7 @@ async function imgChange() {
     $('#img').css('display', 'block');
     for (let i = 0; i < 10; i++) {
         for (let i = 1; i <= 2; i++) {
-            imgPath = '../public/images/drone' + i + '.png';
+            imgPath = '/images/drone' + i + '.png';
             $('#img').attr('src', imgPath);
             await sleep(100);
             $('#img').css('opacity', Math.random() - 0.4);
