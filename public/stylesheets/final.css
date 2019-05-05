@@ -1,0 +1,13 @@
+#default {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+#img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+    display: none;
+}
