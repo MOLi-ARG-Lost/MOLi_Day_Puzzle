@@ -40,6 +40,20 @@ var terminal = (() => {
         $('.container').append('<br /><span class="host col-12 m-0 p-0">' + hostName + '&nbsp;</span>');
     }
 
+    function printNone() {
+        let sign = ' #';
+        $('.container').append('<br /><span class="host col-12 m-0 p-0">' + sign + '&nbsp;</span>');
+    }
+
+    // 顯示故事
+    async function printStory(storyArray) {
+        for(let section of storyArray) {
+            printNone()
+            await printText(section);
+            await sleep(30);
+        }
+    }
+
     // 逐字顯示
     async function printText(word) {
         $('.container .host').last().append('<span class="console"></span>');
@@ -56,40 +70,104 @@ var terminal = (() => {
     }
 
     // 檢查進度
-    function getProgress() {
-        // 載入進度
-        // 重設 Cookie
-        // error
-
-    }
-
-    // 傳送進度
-    function sendInput(command) {
-
-    }
-
-    // 讀取輸入
-    async function user_input() {
-        printHost();
-
-        $('.container .host').last().append('<input type="text" id="id_and_code" name="id_and_code" class="col-4 col-md-6 col-lg-8 m-0 p-0">');
-        $('.id_and_code').focus();
-        $('.id_and_code').keypress(async function (event) {
-            if (event.keyCode == 13) {
-                $('.id_and_code').prop('disabled', true);
-                // 如果輸入錯誤
-                if (!sendInput($('.id_and_code').val())) {
-                    printHost();
-                    await printText('錯誤指令, 無法正確執行');
-                    $('.id_and_code').removeProp('id');
-                    user_input();
+    async function getProgress(teamCode) {
+        let url = '/_api/check/getProgress';
+        let responseStatus = 0;
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'teamCode': teamCode})
+        }).then((response) => {
+            responseStatus = response.status;
+            return response.json();
+        }).then(async(jsonData) => {
+            if(responseStatus === 200) {
+                if(jsonData.status) {
+                    // 有進度
+                    await printStory(jsonData.story);
                 }
+                // 設定成功
+                setCookie('teamID', teamCode, 7);
             }
         });
     }
 
-    // 初始設定
-    function getStart() {
+    // 設定進度
+    async function setProgress(commands) {
+        let url = '/_api/check/setProgress';
+        let responseStatus = 0;
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({'teamCode': commands.split(" ")[0], 'storyCode': commands.split(" ")[1]})
+        }).then((response) => {
+            responseStatus = response.status;
+            return response.json();
+        }).then(async (jsonData) => {
+            printHost();
+            if(responseStatus === 200) {
+                // 設定成功
+                setCookie('teamID', commands.split(" ")[0], 7);
+                await printText(jsonData.message);
+                await printStory(jsonData.story);
+                return true;
+            }
+            if(responseStatus === 403) {
+                // 團隊編號或故事錯誤
+                await printText(jsonData.error);
+                return false;
+            }
+            if(responseStatus === 404) {
+                // 找不到隊伍編號
+                await printText(jsonData.error);
+                return false;
+            }
+            if(responseStatus === 500) {
+                // 資料庫連線錯誤
+                await printText(jsonData.error);
+                return false;
+            }
+        }).catch(async (err) => {
+            await printText('網路錯誤，請重新再試');
+            console.log('Network Error: ', err);
+            return false;
+        })
+    }
+
+    // 使用者輸入
+    async function user_input() {
+        printHost();
+
+        $('.container .host').last().append('<input type="text" id="id_and_code" name="id_and_code" class="col-4 col-md-6 col-lg-8 m-0 p-0">');
+        $('#id_and_code').focus();
+        $('#id_and_code').keypress(async function (event) {
+            if (event.keyCode == 13) {
+                $('#id_and_code').prop('disabled', true);
+                await setProgress($('#id_and_code').val());
+                $('#id_and_code').removeAttr('id');
+                user_input();
+            }
+        });
+    }
+
+    // 讀取資料
+    async function getStart() {
+        let text = ['你好', '歡迎登入世界終端', '請輸入你的 ID 辨識碼以及十位訊息代碼', '如: 21538 X9GEFX1TLL'];
+
+        for (let i = 0; i < text.length; i++) {
+            printHost();
+            await printText(text[i]);
+            await sleep(300);
+        }
+
+    }
+
+    // 終端機初始化
+    async function welcome() {
         let verInfo = `Welcome to WorldSimulation 2019.05 LTS (GNU/Linux 4.4.0-139-generic x86_64)
 
         <br/><br/><br/> &nbsp;* Documentation:  https://help.WorldSimulation.com
@@ -103,103 +181,25 @@ var terminal = (() => {
         <br/> Last login: Sun Apr 21 01:52:42 2019 from 163.22.17.215 <br />`;
 
         $('.container').append(verInfo);
-
         // 檢查 cookie
         if(getCookie("teamID") !== "") {
             // 檢查進度
-
+            await getProgress(getCookie("teamID"));
             // 輸出對話框
+            await user_input();
         } else {
             // 初始化, 要求輸入卡片 ID 及代碼
-
-            // 檢查卡片 ID
-
-            // 確認資料綁定
-
-            // 設定 cookie
-
-            // 檢查進度
-
+            await getStart();
             // 輸出對話框
+            await user_input();
         }
     }
 
     modules.init = () => {
-        getStart();
+        welcome();
         pageScroll();
     };
 
     return modules;
 
 })();
-
-
-
-async function printStory(storyNum) {
-    printHost();
-    // 讀入故事並存進陣列
-    var story = [];
-    await printText('story[storyNum]');
-    printHost();
-}
-
-function checkInput(input_data) {
-    var data = input_data.split(' ');
-    // data[0] 是參賽者的卡號
-    // 要接資料庫紀錄參賽隊伍的進度
-    switch (data[1]) {
-        case 'PTIKK42SQG':
-            printStory(0);
-            return true;
-        case 'HS44APEBS8':
-            printStory(1);
-            return true;
-        case 'APRVL69UB3':
-            printStory(2);
-            return true;
-        case '7GF2M2XM2L':
-            printStory(3);
-            return true;
-        case '36EF11SSOC':
-            printStory(4);
-            return true;
-        case 'UC752H9W22':
-            printStory(5);
-            return true;
-        case 'EM5NM91GA6':
-            printStory(6);
-            return true;
-        default:
-            return false;
-    }
-}
-
-let text = ['你好', '歡迎登入世界終端', '請輸入你的 ID 辨識碼以及執行代碼', '如: 21538 X9GEFX1TLL'];
-
-function printHost() {
-    let hostName = 'OS_0000001@earth:~$';
-    $('.container').append('<br /><span class="host col-12 m-0 p-0">' + hostName + '&nbsp;</span>');
-}
-
-function sleep(ms = 0) {
-    return new Promise(r => setTimeout(r, ms));
-}
-
-async function printText(word) {
-    $('.container .host').last().append('<span class="console"></span>');
-    for (var i in word) {
-        $('.container .host span').last().append(word[i]);
-        await sleep(50);
-    }
-}
-
-async function main() {
-    $('.container').append(verInfo);
-    for (let i = 0; i < text.length; i++) {
-        printHost();
-        await printText(text[i]);
-        await sleep(300);
-    }
-    user_input();
-}
-main();
