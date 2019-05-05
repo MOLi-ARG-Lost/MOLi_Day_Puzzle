@@ -40,15 +40,10 @@ var terminal = (() => {
         $('.container').append('<br /><span class="host col-12 m-0 p-0">' + hostName + '&nbsp;</span>');
     }
 
-    function printNone() {
-        let sign = ' #';
-        $('.container').append('<br /><span class="host col-12 m-0 p-0">' + sign + '&nbsp;</span>');
-    }
-
     // 顯示故事
     async function printStory(storyArray) {
         for(let section of storyArray) {
-            printNone()
+            printHost();
             await printText(section);
             await sleep(30);
         }
