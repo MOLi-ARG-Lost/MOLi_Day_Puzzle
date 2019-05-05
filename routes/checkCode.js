@@ -71,11 +71,16 @@ router.post('/setProgress', function(req, res, next) {
             for(let docIndex in snapshot.docs) {
                 let teamRegObject = snapshot.docs[docIndex].data();
                 if(formData['teamCode'] === teamRegObject['teamCode']) {
-                    // 送出資料
-                    teamRegObject['當前進度'] = formData['storyCode'];
-                    await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
-                    res.status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
-                    return;
+                    if(storyArray.indexOf(formData['storyCode']) > storyArray.indexOf(teamRegObject['當前進度'])) {
+                        // 送出資料
+                        teamRegObject['當前進度'] = formData['storyCode'];
+                        await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
+                        res.status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
+                        return;
+                    } else {
+                        res.status(200).send({'message': '回顧歷史訊息（重新登入可獲得當前訊息）', 'story': getStory(formData['storyCode'])});
+                        return;
+                    }
                 }
             }
             res.status(404).send({'error': ' ID 辨識碼錯誤'});
