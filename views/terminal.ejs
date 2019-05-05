@@ -4,13 +4,16 @@
     <% include ./model/head %>
     <% include ./model/bs_css %>
     <link href="/stylesheets/terminal.css" rel="stylesheet">
-    <title></title>
+    <title>WorldSimulation Terminal</title>
 </head>
 <body>
     <div class="container p-5">
-        <!-- here insert terminal using javascrupt-->
+        <!-- here insert terminal using javascript-->
     </div>
     <% include ./model/bsjq_js %>
     <script src="/javascripts/terminal.js"></script>
+    <script>
+        terminal.init();
+    </script>
 </body>
 </html>
