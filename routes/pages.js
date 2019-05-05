@@ -6,15 +6,15 @@ router.get('/getStart', function(req, res, next) {
 });
 
 router.get('/lnf', function(req, res, next) {
-    res.render('secretGroup/lnf');
+    res.render('L1L2/lnf');
 });
 
 router.get('/cardRecord', function(req, res, next) {
-    res.render('secretGroup/cardRecode');
+    res.render('L1L2/cardRecode');
 });
 
 router.get('/OOXX', function(req, res, next) {
-    res.render('secretGroup/OOXX');
+    res.render('L1L2/OOXX');
 });
 
 router.get('/untouchableWindows', function(req, res, next) {
