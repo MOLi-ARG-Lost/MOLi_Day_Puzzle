@@ -17,6 +17,31 @@ async function imgChange() {
     $('#codeImg').css('display', 'none');
 }
 
+$('#search').on('click', async () => {
+    $('#search').prop('disabled', true);
+    let url = '/_api/lnf/record';
+    let responseStatus = 0;
+    await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'cardID': $('#cardCode').val()})
+    }).then((response) => {
+        responseStatus = response.status;
+        return response.json();
+    }).then((jsonData) => {
+        if(responseStatus === 200) {
+            // 顯示訊息
+            alert(jsonData.message);
+            $('#search').prop('disabled', false);
+        }
+        if(responseStatus == 403 || responseStatus === 500) {
+            alert(jsonData.error);
+            $('#search').prop('disabled', false);
+        }
+    });
+});
 
 async function bgChange() {
     while (true) {
