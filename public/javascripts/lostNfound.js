@@ -80,7 +80,7 @@ var lnfApp = (() => {
         });
         // 綁定送出按鈕事件
         $('#send').on('click', async () => {
-            $('#send').prop('disabled', false);
+            $('#send').prop('disabled', true);
 
             let foundObject = {
                 'id': $('#form26').val(),
@@ -120,11 +120,11 @@ var lnfApp = (() => {
                     // 顯示訊息
                     alert(jsonData.message);
                     $('#modalContactForm').modal('toggle');
-                    $('#send').prop('disabled', true);
+                    $('#send').prop('disabled', false);
                 }
                 if(responseStatus == 403 || responseStatus === 404 || responseStatus === 500) {
                     alert(jsonData.error);
-                    $('#send').prop('disabled', true);
+                    $('#send').prop('disabled', false);
                 }
             });
         });
