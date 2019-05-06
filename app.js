@@ -35,6 +35,7 @@ var pages = require('./routes/pages');
 var register = require('./routes/register');
 var registerPage = require('./routes/registerPage');
 var check = require('./routes/checkCode');
+var lnf = require('./routes/lnf');
 
 var app = express();
 
@@ -58,6 +59,7 @@ app.use('/', pages);
 app.use('/register', registerPage);
 app.use('/_api/register', register);
 app.use('/_api/check', check);
+app.use('/_api/lnf', lnf);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
