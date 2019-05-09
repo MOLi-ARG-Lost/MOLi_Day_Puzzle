@@ -36,6 +36,7 @@ var register = require('./routes/register');
 var registerPage = require('./routes/registerPage');
 var check = require('./routes/checkCode');
 var lnf = require('./routes/lnf');
+var connectAuth = require('./routes/connectAuth')
 
 var app = express();
 
@@ -56,7 +57,8 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', pages);
-app.use('/register', registerPage);
+app.use('/HereIsYourEntrance', registerPage);
+app.use('/ConnectToWorld', connectAuth);
 app.use('/_api/register', register);
 app.use('/_api/check', check);
 app.use('/_api/lnf', lnf);
