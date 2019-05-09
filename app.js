@@ -59,7 +59,7 @@ app.use(function(req, res, next) {
 app.use('/', pages);
 app.use('/HereIsYourEntrance', registerPage);
 app.use('/ConnectToWorld', connectAuth);
-app.use('/_api/register', register);
+app.use('/_api/HereIsYourEntrance', register);
 app.use('/_api/check', check);
 app.use('/_api/lnf', lnf);
 
