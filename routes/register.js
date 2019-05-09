@@ -184,8 +184,28 @@ async function _mailSender(mailArray, hashArray, teamKey, teamPassword) {
             from: "Secret_OS@ncnu.edu.tw",
             to: mailArray[i],
             subject: "MOLi x MysC 活動報名驗證信",
-            text: "親愛的參與者您好，您可以透過 https://xn--pss23c41retm.tw/register/" + teamKey + " 查詢隊伍的信箱驗證狀態，以及點擊 https://xn--pss23c41retm.tw/_api/register/" + hashArray[i] + " 來驗證您的信箱，當三位參與者都已驗證後將於活動開始日 (5/20) 收到起始信件。您的隊伍密碼：" + teamPassword + "、您的隊伍編號：" + teamKey + "，MOLi x Mysc 團隊敬上",
-            html: "親愛的參與者您好，<br> 您可以透過 <a href='https://xn--pss23c41retm.tw/register/" + teamKey + "'>此連結</a> 查詢隊伍的信箱驗證狀態，以及點擊 <a href='https://xn--pss23c41retm.tw/_api/register/" + hashArray[i] + "'>本處</a> 來驗證您的信箱，當三位參與者都已驗證後將於活動開始日 (5/20) 收到起始信件。<br/><br/>您的隊伍密碼：" + teamPassword + "<br/>您的隊伍編號：" + teamKey + "<br/><br/>MOLi x Mysc 團隊敬上"
+            text: `
+            《本信件為系統自動發信，請勿回信》
+
+            ＜LOST＞ 參與者您好，
+            首先恭喜您成功解開報名前置謎題，當看到這封信件時不代表完成報名手續，以下幾點規則敬請您遵守：
+
+                * 團隊中成員必須為國立暨南國際大學之學生或教職員工，並由本人親自參與。
+                * 活動中禁止以任何方式與非同一團隊之成員傳遞、交流及分享相關謎題、道具與線索。
+                * 活動期間如有標記「獲得道具」則團隊可領取該物品，每組乙份，請勿過量領取。
+                * 本活動所有系統皆不需使用資安相關攻擊手法。
+
+            其餘未詳盡之部分及活動獎勵以 活動首頁 (https://xn--pss23c41retm.tw/) 公告為主
+
+            違反上述條例主辦單位有權撤銷該團隊之參與，若對活動產生無法挽回之後果則主辦方將追償其損失，且主辦單位保有隨時修改及終止本活動之權利，如有任何變更內容或詳細注意事項將公布於粉絲團及暨大大本營，恕不另行個別通知。
+
+            同意上述規則後，可以透過 此連結 (https://xn--pss23c41retm.tw/_api/HereIsYourEntrance/${hashArray[i]}) 來驗證您的信箱，當三位參與者都已完成驗證將於活動開始日 (5/26) 收到起始信件，您可以透過 查詢系統 (https://xn--pss23c41retm.tw/HereIsYourEntrance/${teamKey}) 查詢隊伍的信箱驗證狀態，如有問題請聯絡主辦單位 MOLi 粉絲團 (https://m.facebook.com/MOLi.rocks/) 
+
+            您的隊伍密碼：${teamPassword}
+            您的隊伍編號：${teamKey}
+
+            MOLi x Mysc - LOST 團隊敬上`,
+            html: "《本信件為系統自動發信，請勿回信》<br/><br/>＜LOST＞ 參與者您好，<br/>首先恭喜您成功解開報名前置謎題，當看到這封信件時不代表完成報名手續，以下幾點規則敬請您遵守：<br/><ol><li>團隊中成員必須為國立暨南國際大學之學生或教職員工，並由本人親自參與。</li><li>活動中禁止以任何方式與非同一團隊之成員傳遞、交流及分享相關謎題、道具與線索。</li><li>活動期間如有標記「獲得道具」則團隊可領取該物品，每組乙份，請勿過量領取。</li><li>本活動所有系統皆不需使用資安相關攻擊手法。</li></ol>其餘未詳盡之部分及活動獎勵以 <a href='https://xn--pss23c41retm.tw/'>活動首頁</a> 公告為主<br/><br/>違反上述條例主辦單位有權撤銷該團隊之參與，若對活動產生無法挽回之後果則主辦方將追償其損失，且主辦單位保有隨時修改及終止本活動之權利，如有任何變更內容或詳細注意事項將公布於粉絲團及暨大大本營，恕不另行個別通知。<br/><br/>同意上述規則後，可以透過 <a href='https://xn--pss23c41retm.tw/_api/HereIsYourEntrance/" + hashArray[i] + "'>此連結</a> 來驗證您的信箱，當三位參與者都已完成驗證將於活動開始日 (5/26) 收到起始信件，您可以透過 <a href='https://xn--pss23c41retm.tw/HereIsYourEntrance/" + teamKey + "'>查詢系統</a> 查詢隊伍的信箱驗證狀態，如有問題請聯絡主辦單位 <a href='https://m.facebook.com/MOLi.rocks/'>MOLi 粉絲團</a><br/><br/>您的隊伍密碼：" + teamPassword + "<br/>您的隊伍編號：" + teamKey + "<br/><br/>MOLi x Mysc - LOST 團隊敬上"
         };
 
         await transporter.sendMail(mailOptions, function(error, response) {
