@@ -82,9 +82,15 @@ var terminal = (() => {
                 if(jsonData.status) {
                     // 有進度
                     await printStory(jsonData.story);
+                } else {
+                    await getStart();
                 }
                 // 設定成功
                 setCookie('teamID', teamCode, 7);
+            }
+            if(responseStatus === 403 || responseStatus === 404) {
+                setCookie('teamID', teamCode, 0);
+                await getStart();
             }
         });
     }

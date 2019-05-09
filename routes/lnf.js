@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var cardPool = ['17592'];
+var cardPool = ['42122', '46106', '94522', '56154', '31610', '89178', '45658', '02906', '25722', '75994', '34314', '65210', '66906', '36506', '10186', '50906', '49306', '51354', '21690', '64218'];
 
 router.post('/record', function(req, res, next) {
     let postData =req.body;
@@ -44,7 +44,7 @@ router.post('/found', function(req, res, next) {
                 teamObject.teamCode = foundObject.code;
                 teamObject.updateTime = foundObject.time;
                 await database.collection('teams').doc(foundObject.id).set(teamObject);
-                res.status(200).send({'message': '遺失卡片新增成功'});
+                res.status(200).send({'message': '遺失卡片新增成功', 'storyCode': 'PTIKK42SQG'});
             }
         })
         .catch((err) => {

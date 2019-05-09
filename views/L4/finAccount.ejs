@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <link rel="stylesheet" href="/stylesheets/finAccount.css">
+    <title>MysC - Account</title>
+  </head>
+  <body>
+    <div class="container-fluid col-12 text-center">
+      <img class="col-12 col-md-8 my-5 my-md-0" id="accountImg" src="/images/帳表NoBarCode.png" alt="帳表" srcset="" width="800px">
+      <img class="buttons moon" src="/images/moon.png" alt="" onclick="changeImg('moon')">
+      <img class="buttons sun" src="/images/sun.png" alt="" onclick="changeImg('sun')">
+    </div>
+    <% include ../model/bsjq_js %>
+    <script src="/javascripts/finAccount.js"></script>
+  </body>
+</html>

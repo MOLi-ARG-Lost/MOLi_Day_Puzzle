@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <% include ../model/head %>
+    <% include ../model/bs_css %>
+    <title>Huh, Connecting</title>
+</head>
+<body>
+    <div class="row col-12 p-5 d-flex justify-content-center">
+        <p class="col-12 text-center">
+            （即將進行系統連結，資料即將進行同步 Loading...）<br/>
+            <span class="text-white">代表你的身份卻未曾使用過的密碼</span>
+        </p>
+        <div class="col-12 col-md-6 d-flex justify-content-center">
+            <form class="col-12" method="POST" action="/ConnectToWorld">
+                <div class="form-group">
+                    <label for="cardCode">卡號</label>
+                    <input type="text" class="form-control" name="cardCode" id="cardCode" aria-describedby="textHelp" placeholder="請輸入卡號">
+                    <small id="textHelp" class="form-text text-muted">What's the card going on?</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">欲連結之密碼</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="請輸入密碼">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <div class="fixed-bottom">
+            <form class="col-12 form-inline d-flex justify-content-space" method="POST" action="/ConnectToWorld/Next">
+                <input type="password" class="form-control" name="secretCode" id="secretCode" placeholder="Adj/v+N">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    <% include ../model/bsjq_js %>
+</body>
+</html>

@@ -37,12 +37,14 @@
             </td>
             </tr>
         </table>
-        <button type="button" id="restart">Restart</button>
+        <button class="btn btn-light" type="button" id="restart">Restart</button>
         </div>
         <div id="cheatCode" class="row col-12 m-0 d-flex justify-content-center">
-        <img src="/images/callForHelp.png" alt="callForHelp">
-        <br/><input id="secretCode" type="text">
-        <button id="sendOut" type="submit">送出</button>
+            <img class="col-12 col-md-8 col-lg-6 w-100" src="/images/callForHelp.png" alt="callForHelp">
+        </div>
+        <div class="row col-12 m-0 d-flex justify-content-center">
+            <input class="col-9 col-md-6 col-lg-4" id="secretCode" type="text">
+            <button class="col-3 col-md-2 btn btn-secondary" id="sendOut" type="submit">送出</button>
         </div>
     </div>
     <% include ../model/bsjq_js %>

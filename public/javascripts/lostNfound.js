@@ -18,42 +18,11 @@ var lnfApp = (() => {
         }
     }
 
-    // 設定 cookie
-
-    function setCookie(cname, cvalue, exdays) {
-        let d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
-        let expires = "expires="+ d.toUTCString();
-        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-    }
-
-    // 找 cookie
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
     function clearForm() {
         $('#form26').val('');
         $('#form34').val('');
         $('#form29').val('');
         $('#form8').val('');
-    }
-
-    function deleteFound() {
-
     }
 
     modules.init = () => {
@@ -118,7 +87,7 @@ var lnfApp = (() => {
                     // 清除表單
                     clearForm();
                     // 顯示訊息
-                    alert(jsonData.message);
+                    alert(jsonData.message + ', You got a secret code: "' + jsonData.storyCode + '" Please keep it in you mind.');
                     $('#modalContactForm').modal('toggle');
                     $('#send').prop('disabled', false);
                 }

@@ -27,11 +27,13 @@ function getStory(storyCode) {
 router.post('/OOXX', function(req, res, next) {
     let formData = req.body;
     if(formData['secretCode'] && (formData['secretCode'] === "0000192940" || formData['secretCode'] === "0000192-940")) {
-        res.status(200).send({'message': 'Roger that, here is your "O"'});
+        res.status(200).send({'message': 'Roger that, here is your "O"', 'storyCode': 'HS44APEBS8', 'nextUrl': 'ConnectToWorld', 'terminal': 'UntouchableWindows'});
     } else {
         res.status(403).send({'message': 'You got a wrong call.'});
     }
 });
+
+/* 獲得團隊終端機進度 */
 
 router.post('/getProgress', function(req, res, next) {
     let formData = req.body;
@@ -62,6 +64,8 @@ router.post('/getProgress', function(req, res, next) {
     }
 });
 
+/* 設定團隊終端機進度 */
+
 router.post('/setProgress', function(req, res, next) {
     let formData = req.body;
     let database = req.database;
@@ -71,13 +75,16 @@ router.post('/setProgress', function(req, res, next) {
             for(let docIndex in snapshot.docs) {
                 let teamRegObject = snapshot.docs[docIndex].data();
                 if(formData['teamCode'] === teamRegObject['teamCode']) {
-                    if(storyArray.indexOf(formData['storyCode']) > storyArray.indexOf(teamRegObject['當前進度'])) {
+                    if((storyArray.indexOf(formData['storyCode'])) > ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
+                        res.status(404).send({'error': '訊息代碼尚未開啟，請依序輸入'});
+                        return;
+                    } else if((storyArray.indexOf(formData['storyCode'])) === ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
                         // 送出資料
                         teamRegObject['當前進度'] = formData['storyCode'];
                         await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
                         res.status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
                         return;
-                    } else {
+                    } else if((storyArray.indexOf(formData['storyCode'])) < ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
                         res.status(200).send({'message': '回顧歷史訊息（重新登入可獲得當前訊息）', 'story': getStory(formData['storyCode'])});
                         return;
                     }
@@ -92,6 +99,8 @@ router.post('/setProgress', function(req, res, next) {
         res.status(403).send((formData['teamCode']) ? {'error': '訊息代碼錯誤'} :  {'error': '缺少 ID'});
     }
 });
+
+/* 獲得故事(未使用) */
 
 router.post('/getStory', function(req, res, next) {
     let formData = req.body;

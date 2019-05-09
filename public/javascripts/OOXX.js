@@ -8,6 +8,9 @@ var game = (() => {
     var current = 0;
     var gameLimit = 2;
     var getO = false;
+    var storyCode = undefined;
+    var nextUrl = undefined;
+    var terminal = undefined;
 
     var modules = {};
 
@@ -29,10 +32,21 @@ var game = (() => {
         if(win) {
             // 把 hover 移除
             $('.cell').unbind('mouseenter').unbind('mouseleave');
+            // 彈出確認視窗
+            let check = confirm('You Win Huh? Here is you code: "' + storyCode + '" As usually, keep it in mind.');
+            if(check) {
+                alert('Wrong choice. But the browser is gradually become weird');
+                sleep(5000);
+                location.replace('/' + terminal);
+            } else {
+                alert('Right choice. But make sure you got the hint of next location this page.')
+                sleep(1000);
+                location.replace('/' + nextUrl);
+            }
         }
         turn++;
         // Game end - If somebody has won or all cells are filled
-        if (win || turn > 8) {
+        if (win || turn >= 6) {
             $("#restart").addClass("btn-green");  // Highlights "restart" button
             $(".cell").addClass("cannotuse");  // Tells visually you can't interact anymore with the game grid
         }
@@ -161,13 +175,16 @@ var game = (() => {
                 return response.json();
             }).then((jsonData) => {
                 if(responseStatus === 200) {
-                    // 註冊成功
+                    // 驗證成功
                     alert(jsonData.message);
+                    storyCode = jsonData.storyCode;
+                    nextUrl = jsonData.nextUrl;
+                    terminal = jsonData.terminal;
                     gameLimit++;
                     getO = true;
                 }
                 if(responseStatus === 403) {
-                    // 註冊失敗
+                    // 驗證失敗
                     alert(jsonData.message);
                     $('#secretCode').prop('disabled', false);
                     $('#sendOut').prop('disabled', false);
@@ -199,8 +216,7 @@ var game = (() => {
                     if(current < gameLimit) {
                         insertSymbol(this, playerSymbol);
                         current++;
-                        console.log(current, gameLimit);
-                    } else if(gameLimit == 3){
+                    } else if(gameLimit === 3){
                         alert('You lose your chance to win, try again.');
                     } else {
                         alert('Your haven\'t enough "O", try to find it.');

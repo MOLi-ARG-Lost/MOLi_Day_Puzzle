@@ -10,7 +10,7 @@
     <div class="container p-5">
         <h1>校內一卡通紀錄查詢</h1>
         <!-- 查詢的表單 -->
-        <form>
+        <form onkeydown="return event.key != 'Enter';">
             <div class="form-group row">
             <label for="inputEmail3" class="col-sm-2 col-form-label">卡號</label>
             <div class="col-sm-10">
@@ -45,12 +45,12 @@
             </fieldset>
 
             <div class="form-group row">
-            <div class="col-sm-10">
-                <button id="search" type="button" class="btn btn-primary">查詢</button>
+            <div class="col-12 text-right">
+                <button id="search" type="button" class="btn btn-primary">開始查詢</button>
             </div>
             </div>
         </form>
-        <img id="codeImg" src="" alt="" onclick="goSecret()">
+        <img id="codeImg" style="display: none;" src="" alt="" onclick="goSecret()">
     </div>
     <% include ../model/bsjq_js %>
     <script src="/javascripts/cardRecord.js"></script>
