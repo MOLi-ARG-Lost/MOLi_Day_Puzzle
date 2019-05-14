@@ -26,90 +26,91 @@
         </div>
       </div>
       <div id="registerPanel" class="white-panel-right d-none">
-          <div class="accordion" id="accordionExample">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      #1 主要聯絡人
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <form>
-                      <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">姓名/學號</label>
-                        <div class="col-sm-3 pr-sm-0">
-                          <label class="sr-only" for="mainName">name</label>
-                          <input type="text" class="form-control" id="mainName" placeholder="姓名">
+        <% if(status) { %>
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  #1 主要聯絡人
+                </button>
+              </h2>
+            </div>
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <form>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">姓名/學號</label>
+                    <div class="col-sm-3 pr-sm-0">
+                      <label class="sr-only" for="mainName">name</label>
+                      <input type="text" class="form-control" id="mainName" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-5 pl-sm-0">
+                      <label class="sr-only" for="mainStudentID">mainStudentID</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">@</div>
                         </div>
-                        <div class="col-sm-5 pl-sm-0">
-                          <label class="sr-only" for="mainStudentID">mainStudentID</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">@</div>
-                            </div>
-                            <input type="text" class="form-control" id="mainStudentID" placeholder="學號">
-                          </div>
-                        </div>
+                        <input type="text" class="form-control" id="mainStudentID" placeholder="學號">
                       </div>
-                      <small id="passwordHelpBlock" class="form-text text-muted">姓名請填入中文或英文名字，可包含 "-" 及 "空白"</small>
-                      <div class="form-group row">
-                        <label for="mainEmail" class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-8 align-self-center">
-                          <input type="email" class="form-control" id="mainEmail" placeholder="請輸入主要聯絡人信箱">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="teamPassword" class="col-sm-4 col-form-label">Team Password</label>
-                        <div class="col-sm-8 align-self-center">
-                          <input type="password" class="form-control" id="teamPassword" aria-describedby="passwordHelp" placeholder="請輸入團隊密碼">
-                        </div>
-                      </div>
-                      <small id="passwordHelp" class="form-text text-muted">密碼至少要四個英、數字組成，最少需包含一個英文字，本密碼會傳送給所有團隊中的夥伴</small>
-                    </form>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      #2 夥伴一
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <form>
-                      <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">姓名/學號</label>
-                        <div class="col-sm-3 pr-sm-0">
-                          <label class="sr-only" for="secondName">name</label>
-                          <input type="text" class="form-control" id="secondName" placeholder="姓名">
-                        </div>
-                        <div class="col-sm-5 pl-sm-0">
-                          <label class="sr-only" for="secondStudentID">secondStudentID</label>
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">@</div>
-                            </div>
-                            <input type="text" class="form-control" id="secondStudentID" placeholder="學號">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="secondEmail" class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-8 align-self-center">
-                          <input type="email" class="form-control" id="secondEmail" placeholder="請輸入夥伴一信箱">
-                        </div>
-                      </div>
-                    </form>
+                  <small id="passwordHelpBlock" class="form-text text-muted">姓名請填入中文或英文名字，可包含 "-" 及 "空白"</small>
+                  <div class="form-group row">
+                    <label for="mainEmail" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8 align-self-center">
+                      <input type="email" class="form-control" id="mainEmail" placeholder="請輸入主要聯絡人信箱">
+                    </div>
                   </div>
-                </div>
+                  <div class="form-group row">
+                    <label for="teamPassword" class="col-sm-4 col-form-label">Team Password</label>
+                    <div class="col-sm-8 align-self-center">
+                      <input type="password" class="form-control" id="teamPassword" aria-describedby="passwordHelp" placeholder="請輸入團隊密碼">
+                    </div>
+                  </div>
+                  <small id="passwordHelp" class="form-text text-muted">密碼至少要四個英、數字組成，最少需包含一個英文字，本密碼會傳送給所有團隊中的夥伴</small>
+                </form>
               </div>
-              <div class="card">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  #2 夥伴一
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <form>
+                  <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">姓名/學號</label>
+                    <div class="col-sm-3 pr-sm-0">
+                      <label class="sr-only" for="secondName">name</label>
+                      <input type="text" class="form-control" id="secondName" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-5 pl-sm-0">
+                      <label class="sr-only" for="secondStudentID">secondStudentID</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">@</div>
+                        </div>
+                        <input type="text" class="form-control" id="secondStudentID" placeholder="學號">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="secondEmail" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8 align-self-center">
+                      <input type="email" class="form-control" id="secondEmail" placeholder="請輸入夥伴一信箱">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="card">
                 <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -152,6 +153,11 @@
             </div>
           </div>
         </div>
+        <% } else { %>
+          <div class="alert alert-danger" role="alert">
+            Wrong time, right place.
+          </div>
+        <% } %>
       </div>
     </div>
 
