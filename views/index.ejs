@@ -26,9 +26,9 @@
                 <img class="bd-placeholder-img" width="100%" height="100%" src="/images/terminal-ls.jpg"</img>
                 <div class="container">
                     <div class="carousel-caption text-left bg-light text-dark px-5 py-4">
-                    <h1 class="text-monospace">L 0 $ T</h1>
-                    <p>假如有一天，你無法在網路上找到一個人的任何資訊，一丁點都沒有，對這個人的印象又若有似無，你能肯定這個人真的存在嗎？</p>
-                    <p class="m-0"><a class="btn btn-lg btn-primary" href="#" role="button">前往起點</a></p>
+                        <h1 class="text-monospace">L 0 $ T</h1>
+                        <p>假如有一天，你無法在網路上找到一個人的任何資訊，一丁點都沒有，對這個人的印象又若有似無，你能肯定這個人真的存在嗎？</p>
+                        <p class="m-0"><a class="btn btn-lg btn-primary" href="#" role="button">前往起點</a></p>
                     </div>
                 </div>
                 </div>
@@ -36,9 +36,10 @@
                 <img class="bd-placeholder-img" width="100%" height="100%" src="/images/award.png"</img>
                 <div class="container">
                     <div class="carousel-caption bg-light text-dark px-5 py-4">
-                    <h1 class="text-monospace">AWARD</h1>
-                    <p>當你踏入了某人的生命中，是否就間接的證明了他的存在呢？又或是過眼雲煙，彷彿一切都沒發生過。我們都很感激那些曾在生命中造訪的他人，如果就此造就了人生重大的轉變，是否會得到些什麼？</p>
-                    <p class="m-0"><a class="btn btn-lg btn-primary" href="#" role="button">活動獎勵</a></p>
+                        <h1 class="text-monospace">AWARDS</h1>
+                        <p>當你踏入了某人的生命中，是否就間接的證明了他的存在呢？又或是過眼雲煙，彷彿一切都沒發生過。我們都很感激那些曾在生命中造訪的他人，如果就此造就了人生重大的轉變，是否會得到些什麼？</p>
+                        <!-- Button trigger modal -->
+                        <p class="m-0"><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#award">活動獎勵</button></p>
                     </div>
                 </div>
                 </div>
@@ -46,9 +47,9 @@
                 <img class="bd-placeholder-img" width="100%" height="100%" src="/images/rules.png"></img>
                 <div class="container">
                     <div class="carousel-caption text-right bg-light text-dark px-5 py-4">
-                    <h1 class="text-monospace">RULES</h1>
-                    <p>家規、校規與法規，對於滿滿是規定的人生習以為常，當你迷茫時總是有條規定可以依循，在這裡也不例外。</p>
-                    <p class="m-0"><a class="btn btn-lg btn-primary" href="#" role="button">遊戲規則</a></p>
+                        <h1 class="text-monospace">RULES</h1>
+                        <p>家規、校規與法規，對於滿滿是規定的人生習以為常，當你迷茫時總是有條規定可以依循，在這裡也不例外。</p>
+                        <p class="m-0"><button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#rules">遊戲規則</button></p>
                     </div>
                 </div>
                 </div>
@@ -158,6 +159,84 @@
             </div>
             </footer>
         </main>
+        <!-- Modal -->
+        <div class="modal fade" id="award" tabindex="-1" role="dialog" aria-labelledby="awardLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="awardLabel">活動獎勵&nbsp;<span class="badge badge-success align-self-center">AWARDS</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="mt-1 mb-3">獎金</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"># 名次</th>
+                                <th scope="col">完全通關</th>
+                                <th scope="col">部分通關</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">第一名</th>
+                                <td>NTD 3000</td>
+                                <td>NTD 1500</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">第二名</th>
+                                <td>NTD 1500</td>
+                                <td>NTD 900</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">第三名</th>
+                                <td>NTD 900</td>
+                                <td>NTD 600</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <small class="form-text text-muted">備註：「完全通關」意指成功解開所有關卡謎題且收到最終的結局信件，其餘皆為「部分通關」</small>
+                    <h4 class="my-3">參加獎</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            所有成功報名參加活動的隊伍都可以獲得實用的精美禮品乙份！
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="rules" tabindex="-1" role="dialog" aria-labelledby="rulesLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center" id="rulesLabel">活動規則&nbsp;<span class="badge badge-success">RULES</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">1. 團隊中成員必須為國立暨南國際大學之學生或教職員工，並由本人親自參與。</li>
+                        <li class="list-group-item">2. 活動中禁止以任何方式與非同一團隊之成員傳遞、交流及分享相關謎題、道具與線索。</li>
+                        <li class="list-group-item">3. 活動期間如有標記「獲得道具」則團隊可領取該物品，每組乙份，請勿過量領取。</li>
+                        <li class="list-group-item">4. 本活動所有系統皆不需使用資安相關攻擊手法。</li>
+                        <li class="list-group-item">5. 任何異常，都有可能是線索。(定期會掃描網站是否異常，故頁面都是正常的)</li>
+                        <li class="list-group-item">6. 本活動不會搜集使用者資訊，但因解謎需要，請勿使用無痕及關閉 Cookie 快取</li>
+                    </ul>
+                    <small class="form-text text-muted py-2">違反上述條例主辦單位有權撤銷該團隊之參與，若對活動產生無法挽回之後果則主辦方將追償其損失，且主辦單位保有隨時修改及終止本活動之權利，如有任何變更內容或詳細注意事項將公布於粉絲團及暨大大本營，恕不另行個別通知。</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
         <% include ./model/bsjq_js %>
         <script>
             $("a[href='#top']").click(function() {
