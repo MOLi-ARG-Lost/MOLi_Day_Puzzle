@@ -143,7 +143,7 @@ var signUp_modules = (() => {
     }
 
     function _submit(teamObject) {
-        let url = '/_api/register';
+        let url = '/_api/HereIsYourEntrance';
         let responseStatus = 0;
         fetch(url, {
             method: 'POST',
