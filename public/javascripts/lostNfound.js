@@ -29,6 +29,7 @@ var lnfApp = (() => {
         // 檢查有無 localstorage
         if (typeof(Storage) !== "undefined") {
             if(localStorage.code && localStorage.place && localStorage.time) {
+                $('#ad').removeClass('d-none');
                 $('tbody').append(`
                     <tr>
                         <th scope="row">${++currentIndex}</th>
@@ -90,6 +91,7 @@ var lnfApp = (() => {
                     alert(jsonData.message + ', You got a secret code: "' + jsonData.storyCode + '" Please keep it in you mind.');
                     $('#modalContactForm').modal('toggle');
                     $('#send').prop('disabled', false);
+                    $('#ad').removeClass('d-none');
                 }
                 if(responseStatus == 403 || responseStatus === 404 || responseStatus === 500) {
                     alert(jsonData.error);
