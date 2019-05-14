@@ -267,7 +267,6 @@ router.post('/', async function(req, res, next) {
                         // 補充欄位
                         teamPassword = teamObject['團隊密碼'];
                         teamObject['團隊密碼'] = crypto.createHmac('sha512', salt).update(teamObject['團隊密碼']).digest().toString('hex');
-                        teamObject['卡號'] = '尚未建立';
                         teamObject['主要聯絡人']['是否驗證'] = teamObject['夥伴一']['是否驗證'] = teamObject['夥伴二']['是否驗證'] = '否';
                         teamObject['主要聯絡人']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['主要聯絡人']['信箱']).digest().toString('hex');
                         teamObject['夥伴一']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['夥伴一']['信箱']).digest().toString('hex');
