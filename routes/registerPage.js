@@ -4,8 +4,17 @@ var router = express.Router();
 /* 註冊 */
 
 router.get('/', function(req, res, next) {
-    // 時間驗證, 非報名時間顯示 Not Now.
-    res.render('team/register');
+    let currentTime = new Date();
+    let startTime = new Date('2019-05-19T00:00:00.000Z');
+    let endTime = new Date('2019-05-26T00:00:00.000Z')
+    console.log('There is a person come in. Current time: ' + currentTime);
+    console.log(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30);
+    if(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30) {
+        // 時間驗證, 非報名時間顯示 Not Now.
+        res.render('team/register', {'status': true});
+    } else {
+        res.render('team/register', {'status': true});
+    }
 });
 
 // [GET] 查詢組隊驗證狀況

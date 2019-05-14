@@ -242,50 +242,72 @@ router.get('/:mailHash', function(req, res, next) {
 });
 
 // [POST] 新增報名
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
     let teamObject = req.body;
-    if(_verifyTeamObject(teamObject)) {
-        _verifyRepeat(req.database, teamObject)
-        .then((response) => {
-            if(Array.isArray(response)) {
-                res.status(403).send({'error':'成員已註冊 (' + response.toString() + ')'});
-            } else if(response === 'Network Error') {
-                res.status(403).send({'error': response});
-            } else if(!response) {
-                res.status(403).send({'error': '報名成員中有資料重複'});
-            } else {
-                // 補充欄位
-                teamPassword = teamObject['團隊密碼'];
-                teamObject['團隊密碼'] = crypto.createHmac('sha512', salt).update(teamObject['團隊密碼']).digest().toString('hex');
-                teamObject['卡號'] = '尚未建立';
-                teamObject['主要聯絡人']['是否驗證'] = teamObject['夥伴一']['是否驗證'] = teamObject['夥伴二']['是否驗證'] = '否';
-                teamObject['主要聯絡人']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['主要聯絡人']['信箱']).digest().toString('hex');
-                teamObject['夥伴一']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['夥伴一']['信箱']).digest().toString('hex');
-                teamObject['夥伴二']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['夥伴二']['信箱']).digest().toString('hex');
-                req.database.collection('teams').add(teamObject)
-                .then( ref => {
-                    _mailSender([teamObject['主要聯絡人']['信箱'], teamObject['夥伴一']['信箱'], teamObject['夥伴二']['信箱']], [crypto.createHmac('sha512', salt).update(teamObject['主要聯絡人']['信箱']).digest().toString('hex'), crypto.createHmac('sha512', salt).update(teamObject['夥伴一']['信箱']).digest().toString('hex'), crypto.createHmac('sha512', salt).update(teamObject['夥伴二']['信箱']).digest().toString('hex')], ref.id, teamPassword)
-                    .then( success => {
-                        if(success) {
-                            res.status(200).send({'message':'報名完成，請所有成員至 email 信箱收取信件'});
-                        } else {
-                            res.status(403).send({'error':'系統錯誤，請聯絡主辦單位 MOLi 粉絲團 (無法寄送驗證信件)'});
-                        }
-                    })
-                    .catch( error => {
-                        console.log('Send verify mail error. Error: ' + error);
-                        res.status(403).send({'error':'系統錯誤，請聯絡主辦單位 MOLi 粉絲團 (無法寄送驗證信件)'});
-                    });
-                })
-                .catch( error => {
-                    console.log('Update register data error. Error: ' + error)
-                    res.status(403).send({'error':'系統錯誤 (無法上傳報名資料)'});
+
+    await req.database.collection('teams').get()
+    .then(async (snapshot) => {
+        if(snapshot.size >= 18) {
+            await res.status(403).send({'error':'報名組數已滿，若有加開名額會另行公佈於粉絲團'});
+            return;
+        } else {
+            if(_verifyTeamObject(teamObject)) {
+                _verifyRepeat(req.database, teamObject)
+                .then(async (response) => {
+                    if(Array.isArray(response)) {
+                        res.status(403).send({'error':'成員已註冊 (' + response.toString() + ')'});
+                        return;
+                    } else if(response === 'Network Error') {
+                        res.status(403).send({'error': response});
+                        return;
+                    } else if(!response) {
+                        res.status(403).send({'error': '報名成員中有資料重複'});
+                        return;
+                    } else {
+                        // 補充欄位
+                        teamPassword = teamObject['團隊密碼'];
+                        teamObject['團隊密碼'] = crypto.createHmac('sha512', salt).update(teamObject['團隊密碼']).digest().toString('hex');
+                        teamObject['卡號'] = '尚未建立';
+                        teamObject['主要聯絡人']['是否驗證'] = teamObject['夥伴一']['是否驗證'] = teamObject['夥伴二']['是否驗證'] = '否';
+                        teamObject['主要聯絡人']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['主要聯絡人']['信箱']).digest().toString('hex');
+                        teamObject['夥伴一']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['夥伴一']['信箱']).digest().toString('hex');
+                        teamObject['夥伴二']['信箱驗證'] = crypto.createHmac('sha512', salt).update(teamObject['夥伴二']['信箱']).digest().toString('hex');
+                        await req.database.collection('teams').add(teamObject)
+                        .then( ref => {
+                            _mailSender([teamObject['主要聯絡人']['信箱'], teamObject['夥伴一']['信箱'], teamObject['夥伴二']['信箱']], [crypto.createHmac('sha512', salt).update(teamObject['主要聯絡人']['信箱']).digest().toString('hex'), crypto.createHmac('sha512', salt).update(teamObject['夥伴一']['信箱']).digest().toString('hex'), crypto.createHmac('sha512', salt).update(teamObject['夥伴二']['信箱']).digest().toString('hex')], ref.id, teamPassword)
+                            .then( success => {
+                                if(success) {
+                                    res.status(200).send({'message':'報名完成，請所有成員至 email 信箱收取信件'});
+                                    return;
+                                } else {
+                                    res.status(403).send({'error':'系統錯誤，請聯絡主辦單位 MOLi 粉絲團 (無法寄送驗證信件)'});
+                                    return;
+                                }
+                            })
+                            .catch( error => {
+                                console.log('Send verify mail error. Error: ' + error);
+                                res.status(403).send({'error':'系統錯誤，請聯絡主辦單位 MOLi 粉絲團 (無法寄送驗證信件)'});
+                                return;
+                            });
+                        })
+                        .catch( error => {
+                            console.log('Update register data error. Error: ' + error)
+                            res.status(403).send({'error':'系統錯誤 (無法上傳報名資料)'});
+                            return;
+                        });
+                    }
                 });
+            } else {
+                res.status(403).send({'error':'缺少欄位'});
+                return;
             }
-        });
-    } else {
-        res.status(403).send({'error':'缺少欄位'});
-    }
+        }
+    })
+    .catch((error) => {
+        console.log('Search register data error. Error: ' + error)
+        res.status(403).send({'error':'系統錯誤 (無法讀取報名資料)'});
+        return;
+    });
 });
 
 module.exports = router;
