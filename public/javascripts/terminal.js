@@ -45,7 +45,7 @@ var terminal = (() => {
         for(let section of storyArray) {
             printHost();
             await printText(section);
-            await sleep(30);
+            await sleep(50);
         }
     }
 
@@ -54,7 +54,7 @@ var terminal = (() => {
         $('.container .host').last().append('<span class="console"></span>');
         for (var i in word) {
             $('.container .host span').last().append(word[i]);
-            await sleep(30);
+            await sleep(50);
         }
     }
 
@@ -86,7 +86,6 @@ var terminal = (() => {
                     await getStart();
                 }
                 // 設定成功
-                setCookie('teamID', teamCode, 7);
             }
             if(responseStatus === 403 || responseStatus === 404) {
                 setCookie('teamID', teamCode, 0);
@@ -112,7 +111,6 @@ var terminal = (() => {
             printHost();
             if(responseStatus === 200) {
                 // 設定成功
-                setCookie('teamID', commands.split(" ")[0], 7);
                 await printText(jsonData.message);
                 await printStory(jsonData.story);
                 return true;
