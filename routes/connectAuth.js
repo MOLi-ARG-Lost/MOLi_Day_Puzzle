@@ -46,22 +46,26 @@ router.post('/Next', function(req, res, next) {
         return res.status(200).render('tunnelToAB/tunnel');
     }
 
-    switch(postData.secretCode) {
-        case 'SomeSecretDog':
-            res.status(200).render('ab_puzzle/ab_chair');
-            break;
-        case 'SomeCutePangolin':
-        res.status(200).render('ab_puzzle/ab_door');
-            break;
-        case 'SomeDeliciousTuna':
-            res.status(200).render('ab_puzzle/ab_middle');
-            break;
-        case 'SomeAmazingWorld':
-            res.status(200).render('ab_puzzle/ab_spring');
-            break;
-        default:
-            res.status(200).render('tunnelToAB/tunnel');
-            break;
+    if(req.cookies['level'] && req.cookies['level'] === 'HS44APEBS8') {
+        switch(postData.secretCode) {
+            case 'SomeSecretDog':
+                res.status(200).render('ab_puzzle/ab_chair');
+                break;
+            case 'SomeCutePangolin':
+            res.status(200).render('ab_puzzle/ab_door');
+                break;
+            case 'SomeDeliciousTuna':
+                res.status(200).render('ab_puzzle/ab_middle');
+                break;
+            case 'SomeAmazingWorld':
+                res.status(200).render('ab_puzzle/ab_spring');
+                break;
+            default:
+                res.status(200).render('tunnelToAB/tunnel');
+                break;
+        }
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
     }
 
 });
