@@ -10,7 +10,10 @@
     <div class="container-fluid align-self-center d-flex justify-content-center">
         <% if (error) { %>
             <div class="col-10 col-lg-6 alert alert-danger" role="alert">
-                <h1 class="m-0 text-center text-md-left">發生錯誤 (原因：<%= error %>)</h1>
+                <h1 class="m-0 text-center text-md-left">發生錯誤</h1>
+                <p class="my-2">
+                    (原因：<%= error %>)
+                </p>
             </div>
         <% } %>
     </div>
