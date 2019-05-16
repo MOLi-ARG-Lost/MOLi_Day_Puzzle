@@ -39,7 +39,7 @@ var game = (() => {
                 sleep(5000);
                 location.replace('/' + terminal);
             } else {
-                alert('Right choice. But make sure you got the hint of next location this page.')
+                alert('Right choice. But make sure you got the weird thing in this page.')
                 sleep(1000);
                 location.replace('/' + nextUrl);
             }
