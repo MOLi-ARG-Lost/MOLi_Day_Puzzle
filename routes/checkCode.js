@@ -78,11 +78,14 @@ router.post('/setProgress', function(req, res, next) {
                     if((storyArray.indexOf(formData['storyCode'])) > ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
                         await res.status(404).send({'error': '訊息代碼尚未開啟，請依序輸入'});
                         return;
-                    } else if((storyArray.indexOf(formData['storyCode'])) === ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) : 0)) {
+                    } else if((storyArray.indexOf(formData['storyCode'])) === ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
                         // 送出資料
                         teamRegObject['當前進度'] = formData['storyCode'];
                         await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
-                        res.cookie('teamID', teamRegObject['teamCode'], {httpOnly: false, maxAge: 7*24*60*60*1000}).cookie('level', teamRegObject['當前進度'], {httpOnly: true, maxAge: 7*24*60*60*1000}).status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
+                        await res.cookie('teamID', teamRegObject['teamCode'], {httpOnly: false, maxAge: 7*24*60*60*1000}).cookie('level', teamRegObject['當前進度'], {httpOnly: true, maxAge: 7*24*60*60*1000}).status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
+                        return;
+                    } else if((storyArray.indexOf(formData['storyCode'])) === ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) : 0)) {
+                        await res.cookie('teamID', teamRegObject['teamCode'], {httpOnly: false, maxAge: 7*24*60*60*1000}).cookie('level', teamRegObject['當前進度'], {httpOnly: true, maxAge: 7*24*60*60*1000}).status(200).send({'message': '獲得當前訊息', 'story': getStory(formData['storyCode'])});
                         return;
                     } else if((storyArray.indexOf(formData['storyCode'])) < ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) : 0)) {
                         await res.status(200).cookie('teamID', teamRegObject['teamCode'], {httpOnly: false, maxAge: 7*24*60*60*1000}).send({'message': '回顧歷史訊息（重新登入可獲得當前訊息）', 'story': getStory(formData['storyCode'])});
