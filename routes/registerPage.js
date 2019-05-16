@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
         // 時間驗證, 非報名時間顯示 Not Now.
         res.render('team/register', {'status': true});
     } else {
-        res.render('team/register', {'status': true});
+        res.render('team/register', {'status': false});
     }
 });
 
