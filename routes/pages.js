@@ -35,29 +35,53 @@ router.get('/UntouchableWindows', function(req, res, next) {
 /* 人文學院 */
 
 router.get('/ItSoundsLikeYou', function(req, res, next) {
-    res.render('humanities/hu');
+    if(req.cookies['level'] && req.cookies['level'] === 'HS44APEBS8') {
+        res.render('humanities/hu');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.get('/HowToDescribeIt', function(req, res, next) {
-    res.render('humanities/man');
+    if(req.cookies['level'] && req.cookies['level'] === 'HS44APEBS8') {
+        res.render('humanities/man');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.get('/IThinkItsHard', function(req, res, next) {
-    res.render('humanities/it');
+    if(req.cookies['level'] && req.cookies['level'] === 'HS44APEBS8') {
+        res.render('humanities/it');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.get('/EveryoneBelongOneOfIt', function(req, res, next) {
-    res.render('humanities/ies');
+    if(req.cookies['level'] && req.cookies['level'] === 'HS44APEBS8') {
+        res.render('humanities/ies');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 /* 一線生機, 凱薩、帳表 */
 
 router.get('/caesar_shift_5', function(req, res, next) {
-    res.render('L4/help');
+    if(req.cookies['level'] && req.cookies['level'] === 'APRVL69UB3') {
+        res.render('L4/help');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.get('/help', function(req, res, next) {
-    res.render('L4/pwdToFinAccount');
+    if(req.cookies['level'] && req.cookies['level'] === 'APRVL69UB3') {
+        res.render('L4/pwdToFinAccount');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.post('/help', function(req, res, next) {
@@ -67,8 +91,12 @@ router.post('/help', function(req, res, next) {
         return res.status(200).render('L4/pwdToFinAccount');
     }
 
-    if(postData.password === 'Y3.KIEP4.S' || postData.password === 'y3.kiep4.s') {
-        return res.status(200).render('L4/finAccount');
+    if(req.cookies['level'] && req.cookies['level'] === 'APRVL69UB3') {
+        if(postData.password === 'Y3.KIEP4.S' || postData.password === 'y3.kiep4.s') {
+            return res.status(200).render('L4/finAccount');
+        }
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
     }
 
     return res.status(200).render('L4/pwdToFinAccount');
@@ -77,13 +105,21 @@ router.post('/help', function(req, res, next) {
 /* 生之歷練 */
 
 router.get('/final', function(req, res, next) {
-    res.render('L4/final');
+    if(req.cookies['level'] && req.cookies['level'] === 'APRVL69UB3') {
+        res.render('L4/final');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 
 
 router.get('/freemasonry', function(req, res, next) {
-    res.render('freemasonry');
+    if(req.cookies['level'] && req.cookies['level'] === '7GF2M2XM2L') {
+        res.render('freemasonry');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.post('/freemasonry', function(req, res, next) {
@@ -93,19 +129,31 @@ router.post('/freemasonry', function(req, res, next) {
         return res.status(200).render('freemasonry');
     }
 
-    if(postData.password === 'library' || postData.password === 'LIBRARY') {
-        return res.status(200).render('freemasonry_PWD');
+    if(req.cookies['level'] && req.cookies['level'] === '7GF2M2XM2L') {
+        if(postData.password === 'library' || postData.password === 'LIBRARY') {
+            return res.status(200).render('freemasonry_PWD');
+        }
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
     }
 
     return res.status(200).render('freemasonry');
 });
 
 router.get('/ChangeTheWorld', function(req, res, next) {
-    res.render('computer');
+    if(req.cookies['level'] && req.cookies['level'] === 'UC752H9W22') {
+        res.render('computer');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 router.get('/are/you/telent/enough', function(req, res, next) {
-    res.render('final');
+    if(req.cookies['level'] && req.cookies['level'] === 'UC752H9W22') {
+        res.render('final');
+    } else {
+        res.status(403).render('errorPage', {'error': '請先自 WorldSimulation 接收訊息代碼'});
+    }
 });
 
 module.exports = router;
