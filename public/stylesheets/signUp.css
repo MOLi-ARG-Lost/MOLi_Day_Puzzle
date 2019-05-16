@@ -31,6 +31,9 @@ html, body {
         background-color: #ffffff;
     }
 
+    #label-brain > img {
+        cursor:pointer;
+    }
 }
 
 /* over bs md screen */
@@ -85,7 +88,7 @@ html, body {
         color: #B8B8B8;
     }
 
-    #label-brain {
+    #label-brain > img {
         cursor:pointer;
     }
 }
