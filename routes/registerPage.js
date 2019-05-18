@@ -5,8 +5,8 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     let currentTime = new Date();
-    let startTime = new Date('2019-05-19T00:00:00.000Z');
-    let endTime = new Date('2019-05-26T00:00:00.000Z')
+    let startTime = new Date('2019-05-18T16:00:00.000Z');
+    let endTime = new Date('2019-05-25T16:00:00.000Z')
     console.log('There is a person come in. Current time: ' + currentTime);
     console.log(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30);
     if(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30) {
