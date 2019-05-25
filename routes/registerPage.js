@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     console.log('There is a person come in. Current time: ' + currentTime);
     console.log(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30);
     if(currentTime >= startTime && currentTime < endTime && currentTime.getHours() == 0 && currentTime.getMinutes() <= 30) {
-        // 時間驗證, 非報名時間顯示 Not Now.
+        // 時間驗證, 非報名時間顯示 Not Now.
         res.render('team/register', {'status': true});
     } else {
         res.render('team/register', {'status': false});
