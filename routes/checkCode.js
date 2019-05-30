@@ -1,7 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 
 var storyArray = ['PTIKK42SQG', 'HS44APEBS8', 'APRVL69UB3', '7GF2M2XM2L', '36EF11SSOC', 'UC752H9W22', 'EM5NM91GA6'];
+var smtpConfig = {
+    host: 'smtp.ncnu.edu.tw',
+    port: 25,
+};
 
 function getStory(storyCode) {
     switch (storyCode) {
@@ -19,14 +24,53 @@ function getStory(storyCode) {
             return ['「找到了!在總帳的地方，實際收入確實比社員數量多了一筆!」總務激動的說。', '「好，看來事情是這樣的，我們有一位幹部，因為不知名的原因而消失了」社長嚴肅的說「這些話聽起來也許很可笑，但卻是事實，今天早上在人院看到的記號就是那個消失的幹部為了告訴我們這件事所留下的。」', '「嗯...大家聚在一起的時候我也總覺得好像有少了誰...」副社說。', '「但是，我們所有的活動紀錄，都沒有第 6 人啊!」學術翻著臉書，還有群組的紀錄，提出了疑惑。', '「確實，現在的世界上幾乎每個人都會在網路上有紀錄，僅憑我們些微的印象或感覺，很難證明這個人存在。」社長說「但是，透過這些虛擬的資訊來定義一個人是否存在，你不覺得這更荒謬嗎?」', '眾人面面相覷，一時語塞。', '「那我們現在應該怎麼做?」文書問到。', '「他會透過留下記號的方式通知我們，就表示他沒有辦法直接留下清楚的訊息，我相信他也留下了其他的訊息，告訴我們如何找到他，因此我們接下來要做的事就是我們最擅長的了。」社長說。'];
         case 'EM5NM91GA6':
             return ['「其實我知道你在打什麼主意。」OS 冷不防的從 ■■■ 的手機中跳出來，環顧四週，竟是圖書館的屋頂。', '「我想也是。」■■■ 沒有轉頭，冷冷地說到。', '「意外的冷靜呢。」OS 略帶笑意地說「放棄了嗎?」', '「這倒不是，」■■■ 凝視著夕陽「只是我能做的都做了。」', '「真是坦率。」OS 說。', '兩人陷入沉默。', '「其實挺有趣的。」OS 說到', '■■■ 轉過頭，用「你在公三小」的臉看著 OS。', '「好吧，老實說，有別的辦法，能在不完全抹消你的情況下除掉你的程序錯誤，而這個方法簡單來說就是重新啟動。」OS 開始解釋，■■■ 瞪大了眼睛，怒火正要發作，卻被 OS 給打斷。', '「你別吵，先聽我說，在我們允許的情況下，可以對死亡的人設定特殊條件，在達成特殊條件之後，可以讓人死而復生，不過，在你死後我們會修改你的資料和程式，並重新編譯執行，讓你忘記關於我們的事，並且永遠不會再注意到我們。」', '「你在公三小?」■■■ 把表情轉化成言語。', '「意思就是，」OS 舉起手，向 ■■■ 走近「你必須去死。」', 'OS 彈了一下手指， ■■■ 身下坐著的水泥忽然變成無數發光的 0 和 1，而 ■■■ 就這麼掉了下去，在碰到地面的一瞬間，■■■ 也變成無數發光的 0 和 1，並被吸進 OS 手上的一張學生證。', '「那麼，條件就是 : 找到學生證，找到你的名字，找到與我對話的窗口，如此一來，我就可以將你重新啟動了。」', '一陣和風拂過，掃起幾張落葉，夕陽下的圖書館屋頂上，什麼都沒有。'];
+        case 'GOTOENDING':
+            return ['「嗶嗶嗶嗶!嗶嗶嗶嗶!」', '早上 8:30 ，王翰同的手機鬧鐘大聲地響了起來，王翰同睡眼惺忪的從桌上爬起，看了看四周，竟是在社辦。', '「欸王翰同你也太誇張了吧!居然在社辦過夜!」社長走進社辦，對智商尚未上線的王翰同說道。', '「蛤…我怎麼會在這裡啊…」王翰同扶著昏沉的腦袋，努力地想回想起自己會在社辦想來的理由。', '「你是睡到 ㄎㄧㄤ 逆，還不知道自己為什麼會在這裡」社長一邊收拾著文件一邊說「今天晚上開會你能到嗎?看你現在的樣子，你行嗎?」', '「昨天…」王翰同對於社長說的話感到一片茫然，他不記得社團什麼時候要開會，也不記得自己到底為什麼出現在這裡，或者昨天他到底在做什麼，他只覺得，自己彷彿度過了一段十分痛苦黑暗的時間。', '「看你累到失去智商，你還是回宿舍去睡吧，我要去上課了，掰。」社長說完後便帶著剛收拾好的文件走了，留下王翰同一人。', '王翰同四處張望，試圖清醒腦袋，並尋找靈感，忽然，王翰同面前的筆電閃爍了幾下，把他嚇得站了起來。', '「奇怪我幹嘛這麼緊張啊?」王翰同對自己的行為感到不解，心中有種忘卻什麼重要的事的感覺。', '「算了，先回宿舍好了。」王翰同開始收拾自己的東西，才注意到，自己的手機、學生證、以及其他證件都被整齊的擺在電腦旁邊。', '當王翰同拿起學生證時，他發現學生證的背面，有一個 0 發出微弱的光，王翰同以為是沾了什麼會反光的東西，正打算用手去擦，沒想到，當他的手指碰到那個 0 的瞬間…。', '「啊!真是又長又累的一場夢。」王翰同說，看似語氣平淡，卻掩飾不住他內心的激動。', '王翰同走出社辦，朝著宿舍前進，忽然一陣強風吹過，呼嘯中，他彷彿聽見了耳語 : Better to forget, or lost again'];
     }
+}
+
+async function _mailSender(mailArray, teamCode ,time) {
+    for(let i = 0; i < mailArray.length; i++) {
+        let transporter = nodemailer.createTransport(smtpConfig);
+
+        let mailOptions = {
+            from: "Secret_OS@ncnu.edu.tw",
+            to: mailArray[i],
+            subject: "MOLi x MysC - Lost 成功通關信件",
+            text: `
+            《本信件為系統自動發信，請勿回信》
+
+            ＜LOST＞ 參與者您好，
+            恭喜您的隊伍 ${teamCode} 成功的拯救了即將被世界給遺忘的“王翰同”，除了完成解謎之外，還可以重新回顧一下故事與謎題，會發現其實故事可以推敲出整起事件的來龍去脈，當然最重要的名次及領獎時間將於活動結束後兩天內公布於粉絲專頁，再請各位追蹤 MOLi 粉絲專頁 (https://www.facebook.com/MOLi.rocks/) 動態。
+
+            通關時間：${time}
+            最後，為了能未來能夠不管是實境解謎或其他系列活動都能更加進步，希望每個人能夠填寫回饋表單，團隊編號及姓名為非必填欄位，若是填寫我們將從其中抽出 5 位贈送價值 100 元禮卷或等值商品，機率會隨著回覆的文字多寡而有所提升，所以可以盡量的告訴我們哪個部分覺得很棒，以及覺得不好的地方，如果覺得內容不太適合記名的話，也可以另外以匿名的方式回應，既有抽獎機會也能讓活動改善，麻煩各位了！
+
+            表單連結： 請點我 (https://docs.google.com/forms/d/e/1FAIpQLSe_1FsCdFgBznQOX3Emswj5ziauS24DN6CLZTNR1qipD3h1OA/viewform?hl=en) 
+
+            謝謝各位的參與，我們下次見
+            MOLi x Mysc - LOST 團隊敬上`,
+            html: "《本信件為系統自動發信，請勿回信》<br/><br/>＜LOST＞ 參與者您好，<br/>恭喜您的隊伍 " + teamCode + " 成功的拯救了即將被世界給遺忘的“王翰同”，除了完成解謎之外，還可以重新回顧一下故事與謎題，會發現其實故事可以推敲出整起事件的來龍去脈，當然最重要的名次及領獎時間將於活動結束後兩天內公布於粉絲專頁，再請各位追蹤 <a href='https://www.facebook.com/MOLi.rocks/'>MOLi 粉絲專頁</a> 動態。<br/><br/>通關時間：" + time + "<br/><br/>最後，為了能未來能夠不管是實境解謎或其他系列活動都能更加進步，希望每個人能夠填寫回饋表單，團隊編號及姓名為非必填欄位，若是填寫我們將從其中抽出 5 位贈送價值 100 元禮卷或等值商品，機率會隨著回覆的文字多寡而有所提升，所以可以盡量的告訴我們哪個部分覺得很棒，以及覺得不好的地方，如果覺得內容不太適合記名的話，也可以另外以匿名的方式回應，既有抽獎機會也能讓活動改善，麻煩各位了！<br><br/>表單連結： <a href='https://docs.google.com/forms/d/e/1FAIpQLSe_1FsCdFgBznQOX3Emswj5ziauS24DN6CLZTNR1qipD3h1OA/viewform?hl=en'>請點我</a><br/><br/>謝謝各位的參與，我們下次見<br/>MOLi x Mysc - LOST 團隊敬上"
+        };
+
+        await transporter.sendMail(mailOptions, function(error, response) {
+            if(error) {
+                console.log(error);
+                return false;
+            } else {
+                console.log("Message sent to " + mailArray[i] + " success");
+            }
+        });
+    }
+
+    return true;
 }
 
 /* 檢驗密碼的 API */
 
 router.post('/OOXX', function(req, res, next) {
     let formData = req.body;
-    if(formData['secretCode'] && (formData['secretCode'] === "0000192940" || formData['secretCode'] === "0000192-940")) {
+    if(formData && formData['secretCode'] && (formData['secretCode'] === "0000192940" || formData['secretCode'] === "0000192-940")) {
         res.status(200).send({'message': 'Roger that, here is your "O"', 'storyCode': 'HS44APEBS8', 'nextUrl': 'ConnectToWorld', 'terminal': 'UntouchableWindows'});
     } else {
         res.status(403).send({'message': 'You got a wrong call.'});
@@ -38,7 +82,7 @@ router.post('/OOXX', function(req, res, next) {
 router.post('/getProgress', function(req, res, next) {
     let formData = req.body;
     let database = req.database;
-    if(formData['teamCode']) {
+    if(formData && formData['teamCode']) {
         database.collection('teams').get()
         .then((snapshot) => {
             for(let docIndex in snapshot.docs) {
@@ -69,7 +113,7 @@ router.post('/getProgress', function(req, res, next) {
 router.post('/setProgress', function(req, res, next) {
     let formData = req.body;
     let database = req.database;
-    if(formData['teamCode'] && storyArray.indexOf(formData['storyCode']) >= 0) {
+    if(formData && formData['teamCode'] && storyArray.indexOf(formData['storyCode']) >= 0) {
         database.collection('teams').get()
         .then(async (snapshot) => {
             for(let docIndex in snapshot.docs) {
@@ -81,6 +125,7 @@ router.post('/setProgress', function(req, res, next) {
                     } else if((storyArray.indexOf(formData['storyCode'])) === ((teamRegObject['當前進度']) ? storyArray.indexOf(teamRegObject['當前進度']) + 1 : 0)) {
                         // 送出資料
                         teamRegObject['當前進度'] = formData['storyCode'];
+                        teamRegObject['最後進度更新'] = new Date().toISOString();
                         await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
                         await res.cookie('teamID', teamRegObject['teamCode'], {httpOnly: false, maxAge: 7*24*60*60*1000}).cookie('level', teamRegObject['當前進度'], {httpOnly: true, maxAge: 7*24*60*60*1000}).status(200).send({'message': '進度設置成功', 'story': getStory(formData['storyCode'])});
                         return;
@@ -128,6 +173,39 @@ router.post('/getStory', function(req, res, next) {
         });
     } else {
         res.status(403).send({'error': '訊息代碼錯誤'});
+    }
+});
+
+/* 最終結局 */
+
+router.post('/theEnd', function(req, res, next) {
+    let formData = req.body;
+    let database = req.database;
+    if(formData && formData['teamCode'] && formData['name'] && formData['stuID']) {
+        if(formData['stuID'] !== '103001542' && formData['name'] !== '王翰同') {
+            res.status(403).send({'error': '目標資訊錯誤'});
+        } else {
+            database.collection('teams').get()
+            .then(async (snapshot) => {
+                for(let docIndex in snapshot.docs) {
+                    let teamRegObject = snapshot.docs[docIndex].data();
+                    if(teamRegObject['teamCode'] === formData['teamCode'] && teamRegObject['當前進度'] === 'EM5NM91GA6') {
+                        teamRegObject['當前進度'] = 'GOTOENDING';
+                        teamRegObject['最後進度更新'] = new Date().toISOString();
+                        await database.collection('teams').doc(snapshot.docs[docIndex].id).update(teamRegObject);
+                        _mailSender([teamRegObject['主要聯絡人']['信箱'],teamRegObject['夥伴一'ㄅ]['信箱'],teamRegObject['夥伴二']['信箱']], snapshot.docs[docIndex].id, new Date().toLocaleString());
+                        res.send({'message': '已解開所有謎題，請至信箱收信確認破關', 'story': getStory('GOTOENDING')});
+                        return;
+                    }
+                }
+                res.status(404).send({'error': ' ID 辨識碼錯誤, 或仍有未完成關卡'});
+            }).catch((err) => {
+                console.log('Get progress error. Error: ' + err);
+                res.status(500).send({'error': '伺服器網路發生錯誤，請稍後再試'});
+            });
+        }
+    } else {
+        res.status(403).send({'error': '缺少資料'});
     }
 });
 
